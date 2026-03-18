@@ -1,37 +1,20 @@
 import { type MetadataRoute } from 'next'
 
 import { url } from '~/lib'
-import { getAllLatestBlogPostSlugs } from '~/sanity/queries'
+import { getAllBlogSlugs } from '~/lib/mdx'
 
-export default async function sitemap() {
-  const staticMap = [
-    {
-      url: url('/').href,
-      lastModified: new Date(),
-    },
-    {
-      url: url('/blog').href,
-      lastModified: new Date(),
-    },
-    {
-      url: url('/projects').href,
-      lastModified: new Date(),
-    },
-    {
-      url: url('/guestbook').href,
-      lastModified: new Date(),
-    },
-  ] satisfies MetadataRoute.Sitemap
+export default function sitemap(): MetadataRoute.Sitemap {
+  const staticMap: MetadataRoute.Sitemap = [
+    { url: url('/').href, lastModified: new Date() },
+    { url: url('/blog').href, lastModified: new Date() },
+    { url: url('/projects').href, lastModified: new Date() },
+  ]
 
-  const slugs = await getAllLatestBlogPostSlugs()
-
-  const dynamicMap = slugs.map((slug) => ({
+  const slugs = getAllBlogSlugs()
+  const dynamicMap: MetadataRoute.Sitemap = slugs.map((slug) => ({
     url: url(`/blog/${slug}`).href,
     lastModified: new Date(),
-  })) satisfies MetadataRoute.Sitemap
+  }))
 
   return [...staticMap, ...dynamicMap]
 }
-
-export const runtime = 'edge'
-export const revalidate = 60

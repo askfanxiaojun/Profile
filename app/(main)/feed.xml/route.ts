@@ -1,9 +1,9 @@
 import RSS from 'rss'
 
+import { getAllBlogPosts } from '~/lib/mdx'
 import { seo } from '~/lib/seo'
-import { getLatestBlogPosts } from '~/sanity/queries'
 
-export const revalidate = 60 * 60 // 1 hour
+export const dynamic = 'force-static'
 
 export async function GET() {
   const feed = new RSS({
@@ -13,23 +13,19 @@ export async function GET() {
     feed_url: `${seo.url.href}feed.xml`,
     language: 'zh-CN',
     image_url: `${seo.url.href}opengraph-image.png`,
-    generator: 'PHP 9.0',
   })
 
-  const data = await getLatestBlogPosts({ limit: 999 })
-  if (!data) {
-    return new Response('Not found', { status: 404 })
-  }
+  const posts = getAllBlogPosts()
 
-  data.forEach((post) => {
+  posts.forEach((post) => {
     feed.item({
       title: post.title,
-      guid: post._id,
+      guid: post.slug,
       url: `${seo.url.href}blog/${post.slug}`,
       description: post.description,
-      date: new Date(post.publishedAt),
+      date: new Date(post.date),
       enclosure: {
-        url: post.mainImage.asset.url,
+        url: `${seo.url.href}${post.coverImage.replace(/^\//, '')}`,
       },
     })
   })

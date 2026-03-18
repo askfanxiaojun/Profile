@@ -1,0 +1,75 @@
+---
+title: "你好，世界！这是我的第一篇博客"
+description: "欢迎来到我的博客！在这里我会分享技术、设计和生活。"
+date: "2024-03-18"
+categories: ["随笔"]
+coverImage: "/blog/hello-world.jpg"
+---
+
+## 欢迎来到我的博客
+
+这是我的第一篇博客文章。从现在开始，我会在这里分享：
+
+- 技术知识与实践经验
+- 设计思路与灵感
+- 生活随笔与感悟
+
+## 如何写新文章
+
+在 `content/blog/` 目录下新建一个 `.mdx` 文件，文件名就是 URL 路径。
+
+每篇文章顶部需要填写以下信息（frontmatter）：
+
+```yaml
+---
+title: "文章标题"
+description: "文章简介（显示在列表卡片上）"
+date: "2024-03-18"
+categories: ["分类1", "分类2"]
+coverImage: "/blog/你的封面图片.jpg"
+---
+```
+
+然后把封面图片放到 `public/blog/` 目录即可。
+
+## Markdown 基本语法
+
+### 标题
+
+使用 `#` 表示标题，`##` 是二级标题，以此类推。
+
+### 列表
+
+无序列表用 `-`：
+- 第一项
+- 第二项
+
+有序列表用数字：
+1. 第一步
+2. 第二步
+
+### 代码
+
+行内代码用反引号：`console.log('Hello')`
+
+代码块用三个反引号：
+
+```javascript
+function hello() {
+  console.log('Hello, World!')
+}
+```
+
+### 链接和图片
+
+[链接文字](https://example.com)
+
+![图片描述](/blog/hello-world.jpg)
+
+### 引用
+
+> 这是一段引用文字。
+
+---
+
+就是这么简单！开始写你的第一篇文章吧 🎉

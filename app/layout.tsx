@@ -1,24 +1,20 @@
 import './globals.css'
-import './clerk.css'
 import './prism.css'
 
-import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata, Viewport } from 'next'
 
 import { ThemeProvider } from '~/app/(main)/ThemeProvider'
 import { url } from '~/lib'
-import { zhCN } from '~/lib/clerkLocalizations'
 import { sansFont } from '~/lib/font'
 import { seo } from '~/lib/seo'
 
 export const metadata: Metadata = {
   metadataBase: seo.url,
   title: {
-    template: '%s | Cali Castle',
+    template: `%s | ${seo.name}`,
     default: seo.title,
   },
   description: seo.description,
-  keywords: 'Cali,Cali Castle,郭晓楠,佐玩,创始人,CEO,开发者,设计师,细节控,创新',
   manifest: '/site.webmanifest',
   robots: {
     index: true,
@@ -34,20 +30,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: {
       default: seo.title,
-      template: '%s | Cali Castle',
+      template: `%s | ${seo.name}`,
     },
     description: seo.description,
-    siteName: 'Cali Castle',
+    siteName: seo.name,
     locale: 'zh_CN',
     type: 'website',
-    url: 'https://cali.so',
-  },
-  twitter: {
-    site: '@thecalicastle',
-    creator: '@thecalicastle',
-    card: 'summary_large_image',
-    title: seo.title,
-    description: seo.description,
+    url: seo.url,
   },
   alternates: {
     canonical: url('/'),
@@ -70,23 +59,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider localization={zhCN}>
-      <html
-        lang="zh-CN"
-        className={`${sansFont.variable} m-0 h-full p-0 font-sans antialiased`}
-        suppressHydrationWarning
-      >
-        <body className="flex h-full flex-col">
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html
+      lang="zh-CN"
+      className={`${sansFont.variable} m-0 h-full p-0 font-sans antialiased`}
+      suppressHydrationWarning
+    >
+      <body className="flex h-full flex-col">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
   )
 }

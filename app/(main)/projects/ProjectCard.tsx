@@ -11,11 +11,12 @@ import React from 'react'
 
 import { ExternalLinkIcon } from '~/assets'
 import { Card } from '~/components/ui/Card'
-import { urlForImage } from '~/sanity/lib/image'
-import { type Project } from '~/sanity/schemas/project'
+import { type projects } from '~/content/site-config'
+
+type Project = (typeof projects)[number]
 
 export function ProjectCard({ project }: { project: Project }) {
-  const { _id, url, icon, name, description } = project
+  const { id, url, icon, name, description } = project
 
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -35,14 +36,14 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <Card
       as="li"
-      key={_id}
+      key={id}
       onMouseEnter={() => setIsHovering(true)}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setIsHovering(false)}
     >
       <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
         <Image
-          src={urlForImage(icon)?.size(100, 100).auto('format').url()}
+          src={icon}
           alt=""
           width={36}
           height={36}
@@ -67,9 +68,7 @@ export function ProjectCard({ project }: { project: Project }) {
             className="pointer-events-none absolute -inset-x-4 -inset-y-6 z-30 select-none px-4 py-6 sm:-inset-x-6 sm:rounded-2xl sm:px-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            style={{
-              WebkitMaskImage: maskBackground,
-            }}
+            style={{ WebkitMaskImage: maskBackground }}
             exit={{ opacity: 0 }}
           >
             <div className="absolute inset-x-px inset-y-px rounded-2xl border border-dashed border-zinc-900/30 dark:border-zinc-100/20" />

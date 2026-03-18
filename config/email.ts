@@ -1,9 +1,5 @@
-import { env } from '~/env.mjs'
-
+// Email 功能已移除（需要 Resend 等邮件服务）
 export const emailConfig = {
-  from: env.NEXT_PUBLIC_SITE_EMAIL_FROM,
-  baseUrl:
-    env.VERCEL_ENV === 'production'
-      ? env.NEXT_PUBLIC_SITE_URL
-      : 'http://localhost:3000',
+  from: '',
+  baseUrl: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
 }
